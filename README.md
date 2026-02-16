@@ -40,11 +40,12 @@ Calculate and visualize the time remaining with anyone in your life:
 - Specify hours per day spent together
 - Adjust for life changes and distance
 
-📥 **BirdDay Import**
-- Import birthdays from BirdDay SQLite exports
+📥 **[BirdDay](https://github.com/m-i-n-a-r/birday) Import**
+- Import birthdays from [BirdDay](https://github.com/m-i-n-a-r/birday) SQLite exports
 - Bulk import multiple people at once
 - Map each person to relationship type and time pattern
 - Automatically adjusts timelines based on when you met
+- *Thanks to the BirdDay project for making birthday tracking simple and private*
 
 📝 **Scenario Templates** (15+ patterns)
 - Traditional family (left home at 18)

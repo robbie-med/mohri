@@ -7,6 +7,7 @@ export interface Person {
   relationship: RelationshipType
   timeSegments: TimeSegment[]
   notes?: string
+  passedDate?: string  // ISO date string when person passed away
   createdAt: string
 }
 

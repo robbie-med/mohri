@@ -14,6 +14,8 @@ interface Props {
 export default function PersonDetailView({ person, userProfile, onBack, onUpdate, onDelete }: Props) {
   const [isEditing, setIsEditing] = useState(false)
   const [editedSegments, setEditedSegments] = useState<TimeSegment[]>(person.timeSegments)
+  const [showPassedInput, setShowPassedInput] = useState(false)
+  const [passedDate, setPassedDate] = useState(person.passedDate || '')
 
   const calc = calculateTimeLeft(person, userProfile)
 
@@ -21,6 +23,25 @@ export default function PersonDetailView({ person, userProfile, onBack, onUpdate
     if (confirm(`Remove ${person.name} from your circle?`)) {
       onDelete(person.id)
     }
+  }
+
+  const handleMarkAsPassed = () => {
+    if (passedDate) {
+      onUpdate({
+        ...person,
+        passedDate
+      })
+      setShowPassedInput(false)
+    }
+  }
+
+  const handleUnmarkAsPassed = () => {
+    onUpdate({
+      ...person,
+      passedDate: undefined
+    })
+    setPassedDate('')
+    setShowPassedInput(false)
   }
 
   const handleSaveChanges = () => {
@@ -343,6 +364,74 @@ export default function PersonDetailView({ person, userProfile, onBack, onUpdate
             </>
           )}
         </div>
+
+        {/* Mark as Passed */}
+        {!person.passedDate && (
+          <div style={{
+            background: 'var(--charcoal)',
+            border: '1px solid var(--border)',
+            borderRadius: '0.5rem',
+            padding: '2rem',
+            marginBottom: '2rem'
+          }}>
+            <h3 style={{ marginBottom: '1rem', fontSize: '1.1rem' }}>Remembrance</h3>
+            {!showPassedInput ? (
+              <button
+                onClick={() => setShowPassedInput(true)}
+                className="btn btn-secondary"
+                style={{ width: '100%' }}
+              >
+                Mark as Passed
+              </button>
+            ) : (
+              <div>
+                <div className="form-group">
+                  <label>Date of Passing</label>
+                  <input
+                    type="date"
+                    value={passedDate}
+                    onChange={(e) => setPassedDate(e.target.value)}
+                    max={new Date().toISOString().split('T')[0]}
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                  <button onClick={() => setShowPassedInput(false)} className="btn btn-secondary">
+                    Cancel
+                  </button>
+                  <button onClick={handleMarkAsPassed} className="btn" disabled={!passedDate}>
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {person.passedDate && (
+          <div style={{
+            background: 'var(--charcoal)',
+            border: '1px solid var(--border)',
+            borderRadius: '0.5rem',
+            padding: '2rem',
+            marginBottom: '2rem',
+            textAlign: 'center'
+          }}>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+              Passed on {new Date(person.passedDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
+            <button
+              onClick={handleUnmarkAsPassed}
+              className="btn btn-secondary"
+              style={{ marginTop: '1rem' }}
+            >
+              Unmark as Passed
+            </button>
+          </div>
+        )}
 
         {/* Actions */}
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>

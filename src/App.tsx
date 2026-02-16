@@ -5,6 +5,7 @@ import AddPersonModal from './components/AddPersonModal'
 import BirdDayImportModal from './components/BirdDayImportModal'
 import SetupModal from './components/SetupModal'
 import PersonDetailView from './components/PersonDetailView'
+import { calculateTimeLeft } from './utils/calculator'
 import './App.css'
 
 function App() {
@@ -85,102 +86,8 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <div>
-            <h1>Mohri</h1>
-            <p className="subtitle">Teach us to number our days, that we may gain a heart of wisdom — Psalm 90:12</p>
-          </div>
-          <div style={{ position: 'relative' }}>
-            <button
-              onClick={() => setShowMenu(!showMenu)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--gold)',
-                cursor: 'pointer',
-                fontSize: '2rem',
-                padding: '0.5rem',
-                fontFamily: 'inherit'
-              }}
-              aria-label="Menu"
-            >
-              ☰
-            </button>
-            {showMenu && (
-              <>
-                <div
-                  style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    zIndex: 99
-                  }}
-                  onClick={() => setShowMenu(false)}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '100%',
-                    right: 0,
-                    marginTop: '0.5rem',
-                    background: 'var(--charcoal)',
-                    border: '1px solid var(--border)',
-                    borderRadius: '0.5rem',
-                    minWidth: '200px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-                    zIndex: 100
-                  }}
-                >
-                  <button
-                    onClick={() => {
-                      setShowAddModal(true)
-                      setShowMenu(false)
-                    }}
-                    style={{
-                      width: '100%',
-                      padding: '1rem 1.5rem',
-                      background: 'none',
-                      border: 'none',
-                      color: 'var(--text-primary)',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      fontFamily: 'inherit',
-                      fontSize: '1rem',
-                      borderBottom: '1px solid var(--border)'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--slate)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
-                  >
-                    ✚ Add Person
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowImportModal(true)
-                      setShowMenu(false)
-                    }}
-                    style={{
-                      width: '100%',
-                      padding: '1rem 1.5rem',
-                      background: 'none',
-                      border: 'none',
-                      color: 'var(--text-primary)',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      fontFamily: 'inherit',
-                      fontSize: '1rem'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--slate)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
-                  >
-                    📥 Import from BirdDay
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
+        <h1>Mohri</h1>
+        <p className="subtitle">Teach us to number our days, that we may gain a heart of wisdom — Psalm 90:12</p>
       </header>
 
       <main className="main">
@@ -206,7 +113,7 @@ function App() {
             </h2>
 
             <div className="person-grid">
-              {people.map(person => (
+              {people.filter(p => !p.passedDate).map(person => (
                 <PersonCard
                   key={person.id}
                   person={person}
@@ -215,6 +122,60 @@ function App() {
                 />
               ))}
             </div>
+
+            {/* Remember Section */}
+            {people.filter(p => p.passedDate).length > 0 && (
+              <div style={{ marginTop: '4rem' }}>
+                <h2 style={{
+                  fontSize: '1.5rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '2rem',
+                  textAlign: 'center',
+                  fontStyle: 'italic'
+                }}>
+                  Remember
+                </h2>
+                <div className="person-grid">
+                  {people.filter(p => p.passedDate).map(person => {
+                    const calc = calculateTimeLeft(person, userProfile!)
+                    return (
+                      <div
+                        key={person.id}
+                        onClick={() => setSelectedPerson(person)}
+                        className="person-card"
+                        style={{
+                          filter: 'grayscale(100%)',
+                          opacity: 0.7
+                        }}
+                      >
+                        <div className="person-card-header">
+                          <div>
+                            <h3>{person.name}</h3>
+                            <p className="relationship">{person.relationship}</p>
+                          </div>
+                        </div>
+                        <div style={{
+                          padding: '1.5rem',
+                          textAlign: 'center',
+                          borderTop: '1px solid var(--border)'
+                        }}>
+                          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                            {new Date(person.passedDate!).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </p>
+                          <p style={{ fontSize: '1.1rem', color: 'var(--gold)' }}>
+                            {Math.round(calc.hoursSpentSoFar).toLocaleString()} hours together
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
           </>
         )}
       </main>
@@ -234,6 +195,107 @@ function App() {
           onClose={() => setShowImportModal(false)}
         />
       )}
+
+      {/* Floating Menu Button */}
+      <div style={{ position: 'relative' }}>
+        <button
+          onClick={() => setShowMenu(!showMenu)}
+          style={{
+            position: 'fixed',
+            bottom: '2rem',
+            right: '2rem',
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'var(--gold)',
+            border: 'none',
+            color: 'var(--charcoal)',
+            cursor: 'pointer',
+            fontSize: '1.5rem',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+            zIndex: 50,
+            fontFamily: 'inherit',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          aria-label="Menu"
+        >
+          ☰
+        </button>
+        {showMenu && (
+          <>
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 98
+              }}
+              onClick={() => setShowMenu(false)}
+            />
+            <div
+              style={{
+                position: 'fixed',
+                bottom: '5rem',
+                right: '2rem',
+                background: 'var(--charcoal)',
+                border: '1px solid var(--border)',
+                borderRadius: '0.5rem',
+                minWidth: '220px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+                zIndex: 99
+              }}
+            >
+              <button
+                onClick={() => {
+                  setShowAddModal(true)
+                  setShowMenu(false)
+                }}
+                style={{
+                  width: '100%',
+                  padding: '1rem 1.5rem',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  fontFamily: 'inherit',
+                  fontSize: '1rem',
+                  borderBottom: '1px solid var(--border)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--slate)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+              >
+                ✚ Add Person
+              </button>
+              <button
+                onClick={() => {
+                  setShowImportModal(true)
+                  setShowMenu(false)
+                }}
+                style={{
+                  width: '100%',
+                  padding: '1rem 1.5rem',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  fontFamily: 'inherit',
+                  fontSize: '1rem'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--slate)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+              >
+                📥 Import from BirdDay
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   )
 }
