@@ -75,6 +75,73 @@ export const SCENARIO_TEMPLATES: ScenarioTemplate[] = [
     ]
   },
   {
+    id: 'parent-elder-care',
+    name: 'Parent Elder Care',
+    description: 'Parent moves back in with you during their final years. Providing daily care.',
+    segments: [
+      { startAge: 0, endAge: 18, hoursPerDay: 12, description: 'Living at home - Daily interaction' },
+      { startAge: 18, endAge: 55, hoursPerDay: 0.3, description: 'Adult - Occasional visits' },
+      { startAge: 55, endAge: null, hoursPerDay: 8, description: 'Caregiving - Parent moved in' },
+    ]
+  },
+  {
+    id: 'estranged-reconciled',
+    name: 'Estranged Then Reconciled',
+    description: 'Relationship broke down, then rebuilt later in life.',
+    segments: [
+      { startAge: 0, endAge: 18, hoursPerDay: 8, description: 'Childhood - Normal contact' },
+      { startAge: 18, endAge: 35, hoursPerDay: 0, description: 'Estranged - No contact' },
+      { startAge: 35, endAge: null, hoursPerDay: 1, description: 'Reconciled - Regular contact' },
+    ]
+  },
+  {
+    id: 'long-distance',
+    name: 'Long Distance Relationship',
+    description: 'Spouse or partner living apart temporarily, then together.',
+    segments: [
+      { startAge: 25, endAge: 28, hoursPerDay: 2, description: 'Dating long-distance - Daily calls' },
+      { startAge: 28, endAge: null, hoursPerDay: 12, description: 'Married - Living together' },
+    ]
+  },
+  {
+    id: 'college-friend',
+    name: 'College Friend',
+    description: 'Met in college as roommates or close friends, maintained friendship.',
+    segments: [
+      { startAge: 18, endAge: 22, hoursPerDay: 4, description: 'College - Daily interaction' },
+      { startAge: 22, endAge: null, hoursPerDay: 0.5, description: 'Adult - Regular catch-ups' },
+    ]
+  },
+  {
+    id: 'grandparent-close',
+    name: 'Grandparent (Close)',
+    description: 'Involved grandparent who spent significant time during childhood.',
+    segments: [
+      { startAge: 0, endAge: 12, hoursPerDay: 3, description: 'Childhood - Frequent visits, babysitting' },
+      { startAge: 12, endAge: 18, hoursPerDay: 1, description: 'Teenage - Still involved' },
+      { startAge: 18, endAge: null, hoursPerDay: 0.3, description: 'Adult - Holiday visits' },
+    ]
+  },
+  {
+    id: 'work-colleague',
+    name: 'Work Colleague Turned Friend',
+    description: 'Coworker who became a close friend, stayed in touch after.',
+    segments: [
+      { startAge: 30, endAge: 35, hoursPerDay: 2, description: 'Worked together - Daily interaction' },
+      { startAge: 35, endAge: null, hoursPerDay: 0.75, description: 'Stay in touch - Regular meetups' },
+    ]
+  },
+  {
+    id: 'child-from-birth',
+    name: 'Child (From Birth)',
+    description: 'Your own child, living at home then becoming independent.',
+    segments: [
+      { startAge: 0, endAge: 18, hoursPerDay: 10, description: 'Raising child - Daily care' },
+      { startAge: 18, endAge: 22, hoursPerDay: 2, description: 'College - Frequent contact' },
+      { startAge: 22, endAge: null, hoursPerDay: 1, description: 'Independent adult child' },
+    ]
+  },
+  {
     id: 'custom',
     name: 'Custom (Build Your Own)',
     description: 'Create your own timeline from scratch.',
