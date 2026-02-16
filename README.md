@@ -1,12 +1,18 @@
 # ⏳ Time Left - Memento Mori
 
-A somber, reverent calculator for understanding how much time you have left with the people you love.
+A somber calculator for understanding how much time you have left with the people you love.
 
-## Philosophy
+## An Uncomfortable, Sorrowful Truth
 
-*"The trouble is, you think you have time." — Buddha*
+With parents who are 60:
+- ~20 years remaining
+- If you see them 2 days/month = 480 hours left
+- That's **20 days of actual time**
+- Less than 3 weeks
 
-This isn't morbid — it's the opposite. By confronting mortality honestly, we learn to cherish every moment. Time is our most precious gift, and this tool helps you see exactly how much you have left.
+**You have less time than you think.**
+
+This isn't morbid.  By confronting mortality honestly, we learn to cherish every moment. Time is our most precious gift, and this tool helps us see how much we have left.
 
 ## What It Does
 
@@ -41,18 +47,15 @@ Calculate and visualize the time remaining with anyone in your life:
 - Distant family
 - Foster care / separated
 - Spouses, siblings, friends
-- Custom (build your own)
+- Custom
 
 💾 **Local Storage**
 - All data stays on your computer
 - No cloud, no tracking, no backend
 - Privacy-first design
 
-🎨 **Somber Aesthetic**
-- Dark, respectful color palette
-- Serif typography for gravitas
-- Muted golds and bronzes (like old photographs)
-- Minimalist, contemplative design
+🎨 **Reverent Aesthetic**
+- Because reverence is underrated
 
 ## Launch
 
@@ -90,15 +93,13 @@ Opens at **http://localhost:5175**
 
 ## The Math
 
-**Time Remaining** = min(their years left, your years left)
-
-Based on whoever dies first. Brutal, honest, true.
+**Time Remaining** = min(their years left, your years left) i.e. it's based on whoever dies first
 
 **Hours Spent** = Σ (years in period × 365.25 × hours per day)
 
 **Percentage Remaining** = hours left / total lifetime hours
 
-## Scenarios Explained
+## Scenarios
 
 **Traditional Family:**
 - 0-18: 12 hrs/day (living at home)
@@ -113,16 +114,6 @@ Based on whoever dies first. Brutal, honest, true.
 - 0-5: 8 hrs/day
 - 5+: 0 hrs/day (separated)
 
-## The Uncomfortable Truth
-
-With parents who are 60:
-- ~20 years remaining
-- If you see them 2 days/month = 480 hours left
-- That's **20 days of actual time**
-- Less than 3 weeks
-
-**You have less time than you think.**
-
 ## Tech Stack
 
 - React 19 + TypeScript + Vite
@@ -131,16 +122,6 @@ With parents who are 60:
 - Recharts for visualization
 - Zero backend, zero tracking
 
-## Credits
-
-Inspired by:
-- Tim Urban's "The Tail End" (Wait But Why)
-- Stoic philosophy (Memento Mori)
-- Buddhist teachings on impermanence
-- The universal human experience of loss
-
 ---
 
-*Remember: This tool exists to help you live better, not to depress you. Use it as motivation to call your mom, visit your dad, hug your kids, and treasure every moment with the people who matter.*
-
-*Memento Mori — Remember that you must die.*
+*Remember: This tool exists to help you live better, not to depress you. Use it as motivation to call your mother, visit your father, teach your children, and relish every moment with the people placed in your path.*
