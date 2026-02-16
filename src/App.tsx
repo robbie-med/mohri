@@ -14,6 +14,7 @@ function App() {
   const [showImportModal, setShowImportModal] = useState(false)
   const [showSetup, setShowSetup] = useState(true)
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null)
+  const [showMenu, setShowMenu] = useState(false)
 
   // Load from localStorage
   useEffect(() => {
@@ -84,8 +85,102 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>Memento Mori</h1>
-        <p className="subtitle">Teach us to number our days, that we may gain a heart of wisdom — Psalm 90:12</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          <div>
+            <h1>Mohri</h1>
+            <p className="subtitle">Teach us to number our days, that we may gain a heart of wisdom — Psalm 90:12</p>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => setShowMenu(!showMenu)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--gold)',
+                cursor: 'pointer',
+                fontSize: '2rem',
+                padding: '0.5rem',
+                fontFamily: 'inherit'
+              }}
+              aria-label="Menu"
+            >
+              ☰
+            </button>
+            {showMenu && (
+              <>
+                <div
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 99
+                  }}
+                  onClick={() => setShowMenu(false)}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    right: 0,
+                    marginTop: '0.5rem',
+                    background: 'var(--charcoal)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '0.5rem',
+                    minWidth: '200px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+                    zIndex: 100
+                  }}
+                >
+                  <button
+                    onClick={() => {
+                      setShowAddModal(true)
+                      setShowMenu(false)
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '1rem 1.5rem',
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--text-primary)',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      fontFamily: 'inherit',
+                      fontSize: '1rem',
+                      borderBottom: '1px solid var(--border)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--slate)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+                  >
+                    ✚ Add Person
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowImportModal(true)
+                      setShowMenu(false)
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '1rem 1.5rem',
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--text-primary)',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      fontFamily: 'inherit',
+                      fontSize: '1rem'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--slate)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+                  >
+                    📥 Import from BirdDay
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </header>
 
       <main className="main">
@@ -97,33 +192,18 @@ function App() {
               Time is our most precious gift. Add the people who matter most to understand
               how much time you truly have left with them.
             </p>
-            <p style={{ marginBottom: '2rem', fontStyle: 'italic', color: 'var(--text-tertiary)' }}>
+            <p style={{ marginBottom: '0.5rem', fontStyle: 'italic', color: 'var(--text-tertiary)' }}>
               "The trouble is, you think you have time." — Buddha
             </p>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <button className="btn" onClick={() => setShowAddModal(true)}>
-                ✚ Add Your First Person
-              </button>
-              <button className="btn btn-secondary" onClick={() => setShowImportModal(true)}>
-                📥 Import from BirdDay
-              </button>
-            </div>
+            <p style={{ color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>
+              Use the menu (☰) to add people or import from BirdDay
+            </p>
           </div>
         ) : (
           <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.5rem', color: 'var(--text-secondary)' }}>
-                {people.length} {people.length === 1 ? 'person' : 'people'} in your circle
-              </h2>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button className="btn btn-small btn-secondary" onClick={() => setShowImportModal(true)}>
-                  📥 Import from BirdDay
-                </button>
-                <button className="btn btn-small" onClick={() => setShowAddModal(true)}>
-                  ✚ Add Person
-                </button>
-              </div>
-            </div>
+            <h2 style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+              {people.length} {people.length === 1 ? 'person' : 'people'} in your circle
+            </h2>
 
             <div className="person-grid">
               {people.map(person => (

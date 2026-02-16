@@ -61,6 +61,19 @@ export default function BirdDayImportModal({ userProfile, onAdd, onClose }: Prop
         const originalDate = row[3] as string
         const [year, month] = originalDate.split('-').map(Number)
 
+        // Calculate user's age when person was born (if person born after user)
+        let startAge = 0
+        if (year > userProfile.birthYear) {
+          startAge = year - userProfile.birthYear
+          // Adjust for months - if person born before user's birthday month, user was still previous age
+          if (month < userProfile.birthMonth) {
+            startAge -= 1
+          }
+        } else if (year === userProfile.birthYear && month > userProfile.birthMonth) {
+          // Same year but person born after user's birthday month
+          startAge = 0
+        }
+
         return {
           id,
           name,
@@ -69,7 +82,7 @@ export default function BirdDayImportModal({ userProfile, onAdd, onClose }: Prop
           birthMonth: month,
           selected: true,
           relationship: 'friend' as RelationshipType,
-          startAge: 0,
+          startAge,
           templateId: 'traditional-family'
         }
       })
