@@ -40,19 +40,29 @@ Calculate and visualize the time remaining with anyone in your life:
 - Specify hours per day spent together
 - Adjust for life changes and distance
 
-📝 **Scenario Templates**
+📥 **BirdDay Import**
+- Import birthdays from BirdDay SQLite exports
+- Bulk import multiple people at once
+- Map each person to relationship type and time pattern
+- Automatically adjusts timelines based on when you met
+
+📝 **Scenario Templates** (15+ patterns)
 - Traditional family (left home at 18)
 - Strong family (living nearby)
 - Homeschooled (exceptionally close)
-- Distant family
-- Foster care / separated
-- Spouses, siblings, friends
-- Custom
+- Parent elder care (moved back in)
+- Estranged then reconciled
+- Long distance relationship
+- College friends, work colleagues
+- Grandparents, siblings, children
+- Distant family, foster care
+- Custom (build your own)
 
 💾 **Local Storage**
 - All data stays on your computer
 - No cloud, no tracking, no backend
 - Privacy-first design
+- BirdDay imports processed entirely in browser
 
 🎨 **Reverent Aesthetic**
 - Because reverence is underrated
@@ -72,16 +82,27 @@ Opens at **http://localhost:5175**
 ## How to Use
 
 ### 1. Initial Setup
-- Enter your birth year
+- Enter your birth year and birth month
 - Select your sex (for life expectancy)
 
-### 2. Add a Person
+### 2. Add People
+
+**Option A: Add Manually**
 - Name and basic info
 - Choose a scenario template
 - Customize the timeline
 
+**Option B: Import from BirdDay**
+- Click "📥 Import from BirdDay"
+- Upload your BirdDay export (.db file)
+- Review and map people to relationships
+- Set when you met each person (your age)
+- Choose time patterns for each relationship
+- Import selected people
+
 ### 3. View Calculations
-- See years, days, hours remaining
+- See years remaining in their life
+- See actual time together (the sobering truth)
 - Understand what percentage has passed
 - Confront the reality of finite time
 
@@ -119,7 +140,7 @@ Opens at **http://localhost:5175**
 - React 19 + TypeScript + Vite
 - Local storage for persistence
 - SSA life expectancy data
-- Recharts for visualization
+- sql.js for BirdDay import (SQLite in browser)
 - Zero backend, zero tracking
 
 ---

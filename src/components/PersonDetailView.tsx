@@ -71,7 +71,8 @@ export default function PersonDetailView({ person, userProfile, onBack, onUpdate
             color: 'var(--gold)',
             cursor: 'pointer',
             fontSize: '1rem',
-            marginBottom: '0.5rem'
+            marginBottom: '0.5rem',
+            fontFamily: 'inherit'
           }}
         >
           ← Back
