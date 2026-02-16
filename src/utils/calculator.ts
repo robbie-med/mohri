@@ -25,6 +25,9 @@ export function calculateTimeLeft(
   if (person.passedDate) {
     const passedDate = new Date(person.passedDate)
     effectiveUserAge = calculateAge(userProfile.birthYear, userProfile.birthMonth, passedDate)
+    console.log('Person passed on:', person.passedDate)
+    console.log('User age when person passed:', effectiveUserAge)
+    console.log('User current age:', userCurrentAge)
   }
 
   // Get life expectancy
@@ -47,7 +50,14 @@ export function calculateTimeLeft(
       const daysInSegment = yearsInSegment * 365.25
       const hoursInSegment = daysInSegment * segment.hoursPerDay
       hoursSpentSoFar += hoursInSegment
+      if (person.passedDate) {
+        console.log(`Segment: age ${segmentStart}-${segmentEnd}, ${segment.hoursPerDay}hrs/day = ${hoursInSegment.toFixed(0)} hours`)
+      }
     }
+  }
+
+  if (person.passedDate) {
+    console.log('Total hours together:', hoursSpentSoFar.toFixed(0))
   }
 
   // Calculate hours remaining estimate
