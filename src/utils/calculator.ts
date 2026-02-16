@@ -25,9 +25,6 @@ export function calculateTimeLeft(
   if (person.passedDate) {
     const passedDate = new Date(person.passedDate)
     effectiveUserAge = calculateAge(userProfile.birthYear, userProfile.birthMonth, passedDate)
-    console.log('Person passed on:', person.passedDate)
-    console.log('User age when person passed:', effectiveUserAge)
-    console.log('User current age:', userCurrentAge)
   }
 
   // Get life expectancy
@@ -50,14 +47,7 @@ export function calculateTimeLeft(
       const daysInSegment = yearsInSegment * 365.25
       const hoursInSegment = daysInSegment * segment.hoursPerDay
       hoursSpentSoFar += hoursInSegment
-      if (person.passedDate) {
-        console.log(`Segment: age ${segmentStart}-${segmentEnd}, ${segment.hoursPerDay}hrs/day = ${hoursInSegment.toFixed(0)} hours`)
-      }
     }
-  }
-
-  if (person.passedDate) {
-    console.log('Total hours together:', hoursSpentSoFar.toFixed(0))
   }
 
   // Calculate hours remaining estimate
@@ -103,6 +93,34 @@ export function formatHours(hours: number): string {
     return `${Math.round(hours / (24 * 7))} weeks`
   } else {
     return `${Math.round(hours / (24 * 365))} years`
+  }
+}
+
+export function formatTimeShared(hours: number): string {
+  const days = hours / 24
+  const weeks = days / 7
+  const months = days / 30.44  // average month length
+  const years = days / 365.25
+
+  // Pick unit that gives most readable number (avoid tiny decimals and huge numbers)
+  if (years >= 2) {
+    return `${Math.round(years)} years`
+  } else if (years >= 1) {
+    return `${years.toFixed(1)} years`
+  } else if (months >= 2) {
+    return `${Math.round(months)} months`
+  } else if (months >= 1) {
+    return `${months.toFixed(1)} months`
+  } else if (weeks >= 2) {
+    return `${Math.round(weeks)} weeks`
+  } else if (weeks >= 1) {
+    return `${weeks.toFixed(1)} weeks`
+  } else if (days >= 2) {
+    return `${Math.round(days)} days`
+  } else if (days >= 1) {
+    return `${days.toFixed(1)} days`
+  } else {
+    return `${Math.round(hours)} ${hours === 1 ? 'hour' : 'hours'}`
   }
 }
 

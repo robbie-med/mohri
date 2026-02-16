@@ -5,7 +5,7 @@ import AddPersonModal from './components/AddPersonModal'
 import BirdDayImportModal from './components/BirdDayImportModal'
 import SetupModal from './components/SetupModal'
 import PersonDetailView from './components/PersonDetailView'
-import { calculateTimeLeft } from './utils/calculator'
+import { calculateTimeLeft, formatTimeShared } from './utils/calculator'
 import './App.css'
 
 function App() {
@@ -167,7 +167,7 @@ function App() {
                             })}
                           </p>
                           <p style={{ fontSize: '1.1rem', color: 'var(--gold)' }}>
-                            {Math.round(calc.hoursSpentSoFar).toLocaleString()} hours together
+                            {formatTimeShared(calc.hoursSpentSoFar)} together
                           </p>
                         </div>
                       </div>
