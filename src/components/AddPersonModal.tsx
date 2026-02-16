@@ -17,7 +17,6 @@ export default function AddPersonModal({ userProfile, onAdd, onClose }: Props) {
   const [birthMonth, setBirthMonth] = useState(1)
   const [sex, setSex] = useState<'male' | 'female'>('male')
   const [relationship, setRelationship] = useState<RelationshipType>('parent')
-  const [selectedScenario, setSelectedScenario] = useState<string>('')
   const [timeSegments, setTimeSegments] = useState<TimeSegment[]>([])
 
   const handleBasicNext = () => {
@@ -25,7 +24,6 @@ export default function AddPersonModal({ userProfile, onAdd, onClose }: Props) {
   }
 
   const handleScenarioSelect = (scenarioId: string) => {
-    setSelectedScenario(scenarioId)
     const scenario = SCENARIO_TEMPLATES.find(s => s.id === scenarioId)
     if (scenario) {
       setTimeSegments(scenario.segments.map(s => ({ ...s })))

@@ -9,7 +9,6 @@ interface Props {
 
 export default function PersonCard({ person, userProfile, onClick }: Props) {
   const calc = calculateTimeLeft(person, userProfile)
-  const currentYear = new Date().getFullYear()
 
   return (
     <div className="person-card" onClick={onClick}>

@@ -1,5 +1,5 @@
-import { Person, TimeSegment, TimeCalculation, UserProfile } from '../types'
-import { getLifeExpectancy, getYearsRemaining } from '../data/lifeExpectancy'
+import { Person, TimeCalculation, UserProfile } from '../types'
+import { getLifeExpectancy } from '../data/lifeExpectancy'
 
 function calculateAge(birthYear: number, birthMonth: number): number {
   const now = new Date()

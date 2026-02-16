@@ -16,7 +16,6 @@ export default function PersonDetailView({ person, userProfile, onBack, onUpdate
   const [editedSegments, setEditedSegments] = useState<TimeSegment[]>(person.timeSegments)
 
   const calc = calculateTimeLeft(person, userProfile)
-  const currentYear = new Date().getFullYear()
 
   const handleDelete = () => {
     if (confirm(`Remove ${person.name} from your circle?`)) {
