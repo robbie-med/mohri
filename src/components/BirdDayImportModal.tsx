@@ -37,7 +37,7 @@ export default function BirdDayImportModal({ userProfile, onAdd, onClose }: Prop
     try {
       const arrayBuffer = await file.arrayBuffer()
       const SQL = await initSqlJs({
-        locateFile: (file: string) => `https://sql.js.org/dist/${file}`
+        locateFile: (file: string) => `/${file}`
       })
       const db: Database = new SQL.Database(new Uint8Array(arrayBuffer))
 
@@ -177,11 +177,10 @@ export default function BirdDayImportModal({ userProfile, onAdd, onClose }: Prop
                 <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>📥</p>
                 <h3 style={{ marginBottom: '1rem' }}>Choose BirdDay Export File</h3>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-                  Select the SQLite database file (.db) exported from BirdDay
+                  Select the SQLite database file exported from BirdDay (may be extensionless)
                 </p>
                 <input
                   type="file"
-                  accept=".db"
                   onChange={handleFileUpload}
                   style={{ display: 'none' }}
                   id="birday-file-input"
