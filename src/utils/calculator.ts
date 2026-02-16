@@ -1,10 +1,10 @@
 import { Person, TimeCalculation, UserProfile } from '../types'
 import { getLifeExpectancy } from '../data/lifeExpectancy'
 
-function calculateAge(birthYear: number, birthMonth: number): number {
-  const now = new Date()
-  const currentYear = now.getFullYear()
-  const currentMonth = now.getMonth() + 1
+function calculateAge(birthYear: number, birthMonth: number, atDate?: Date): number {
+  const referenceDate = atDate || new Date()
+  const currentYear = referenceDate.getFullYear()
+  const currentMonth = referenceDate.getMonth() + 1
 
   let age = currentYear - birthYear
   if (currentMonth < birthMonth) {
@@ -20,6 +20,13 @@ export function calculateTimeLeft(
   const personCurrentAge = calculateAge(person.birthYear, person.birthMonth)
   const userCurrentAge = calculateAge(userProfile.birthYear, userProfile.birthMonth)
 
+  // If person has passed, calculate user's age at that time
+  let effectiveUserAge = userCurrentAge
+  if (person.passedDate) {
+    const passedDate = new Date(person.passedDate)
+    effectiveUserAge = calculateAge(userProfile.birthYear, userProfile.birthMonth, passedDate)
+  }
+
   // Get life expectancy
   const personLifeExpectancy = getLifeExpectancy(personCurrentAge, person.sex)
   const userLifeExpectancy = getLifeExpectancy(userCurrentAge, userProfile.sex)
@@ -29,11 +36,11 @@ export function calculateTimeLeft(
   const userYearsRemaining = userLifeExpectancy - userCurrentAge
   const yearsRemaining = Math.max(0, Math.min(personYearsRemaining, userYearsRemaining))
 
-  // Calculate hours spent so far
+  // Calculate hours spent so far (up to passed date if applicable)
   let hoursSpentSoFar = 0
   for (const segment of person.timeSegments) {
     const segmentStart = segment.startAge
-    const segmentEnd = segment.endAge === null ? userCurrentAge : Math.min(segment.endAge, userCurrentAge)
+    const segmentEnd = segment.endAge === null ? effectiveUserAge : Math.min(segment.endAge, effectiveUserAge)
 
     if (segmentEnd > segmentStart) {
       const yearsInSegment = segmentEnd - segmentStart
