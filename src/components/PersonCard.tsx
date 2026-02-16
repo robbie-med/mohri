@@ -1,5 +1,5 @@
 import { Person, UserProfile } from '../types'
-import { calculateTimeLeft, formatDuration } from '../utils/calculator'
+import { calculateTimeLeft } from '../utils/calculator'
 
 interface Props {
   person: Person
@@ -38,8 +38,8 @@ export default function PersonCard({ person, userProfile, onClick }: Props) {
           <div className="stat-label">Years Left</div>
         </div>
         <div className="stat">
-          <div className="stat-value">{formatDuration(calc.daysRemaining)}</div>
-          <div className="stat-label">Time Remaining</div>
+          <div className="stat-value">{Math.round(calc.weeksRemaining).toLocaleString()}</div>
+          <div className="stat-label">Weeks Remaining</div>
         </div>
       </div>
     </div>
