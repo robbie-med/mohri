@@ -1,6 +1,6 @@
 # ⏳ Time Left - Memento Mori
 
-A somber calculator for understanding how much time you have left with the people you love.
+Time is a limited resource we spend with abandon.  This is a somber calculator for understanding how much time you have left with the people you love.
 
 ## An Uncomfortable, Sorrowful Truth
 
@@ -12,7 +12,7 @@ With parents who are 60:
 
 **You have less time than you think.**
 
-This isn't morbid.  By confronting mortality honestly, we learn to cherish every moment. Time is our most precious gift, and this tool helps us see how much we have left.
+This isn't morbid.  By confronting mortality honestly, we learn to cherish every moment.  Time is our most precious gift, and this tool helps us see how much we have left.
 
 ## What It Does
 
@@ -45,7 +45,7 @@ Calculate and visualize the time remaining with anyone in your life:
 - Bulk import multiple people at once
 - Map each person to relationship type and time pattern
 - Automatically adjusts timelines based on when you met
-- *Thanks to the BirdDay project for making birthday tracking simple and private*
+- *Thanks to the BirdDay project for making birthday tracking beautiful, simple, and private*
 
 📝 **Scenario Templates** (15+ patterns)
 - Traditional family (left home at 18)
@@ -68,23 +68,11 @@ Calculate and visualize the time remaining with anyone in your life:
 🎨 **Reverent Aesthetic**
 - Because reverence is underrated
 
-## Launch
-
-**Desktop Shortcut:**
-Double-click "Time Left" on your Desktop
-
-**Command Line:**
-```bash
-/home/user/time-left/launch.sh
-```
-
-Opens at **http://localhost:5175**
-
 ## How to Use
 
 ### 1. Initial Setup
 - Enter your birth year and birth month
-- Select your sex (for life expectancy)
+- Select your sex--for life expectancy calculations
 
 ### 2. Add People
 
@@ -95,15 +83,15 @@ Opens at **http://localhost:5175**
 
 **Option B: Import from BirdDay**
 - Click "📥 Import from BirdDay"
-- Upload your BirdDay export (.db file)
+- Upload your BirdDay export
 - Review and map people to relationships
-- Set when you met each person (your age)
+- Set YOUR age when you met each person
 - Choose time patterns for each relationship
 - Import selected people
 
 ### 3. View Calculations
 - See years remaining in their life
-- See actual time together (the sobering truth)
+- See *actual* time together 
 - Understand what percentage has passed
 - Confront the reality of finite time
 
@@ -121,20 +109,20 @@ Opens at **http://localhost:5175**
 
 **Percentage Remaining** = hours left / total lifetime hours
 
-## Scenarios
+## Example Scenarios
 
 **Traditional Family:**
-- 0-18: 12 hrs/day (living at home)
-- 18-25: 0.5 hrs/day (college, holidays)
-- 25+: 0.3 hrs/day (adult life)
+- 0-18: 12 hrs/day
+- 18-25: 0.5 hrs/day
+- 25+: 0.3 hrs/day 
 
 **Homeschooled:**
-- 0-22: 18 hrs/day (nearly constant)
-- 22+: 2 hrs/day (maintained closeness)
+- 0-22: 18 hrs/day
+- 22+: 2 hrs/day 
 
 **Foster Care:**
 - 0-5: 8 hrs/day
-- 5+: 0 hrs/day (separated)
+- 5+: 0 hrs/day 
 
 ## Tech Stack
 
@@ -143,6 +131,8 @@ Opens at **http://localhost:5175**
 - SSA life expectancy data
 - sql.js for BirdDay import (SQLite in browser)
 - Zero backend, zero tracking
+- If you run this locally it opens at **http://localhost:5175**
+
 
 ---
 
